@@ -21,6 +21,7 @@ services:
     container_name: productdb
     environment:
       - MYSQL_ROOT_PASSWORD=123Pa$$$$word!
+      - MYSQL_DATABASE=ProductDB
     restart: always
     volumes:
       - mysql_data:/var/lib/mysql
@@ -115,7 +116,7 @@ services:
     ports:
       - "8080:80"
     environment:
-      PMA_HOST: db
+      PMA_HOST: productdb
       MYSQL_ROOT_PASSWORD: 123Pa$$$$word!
       TZ: 'Asia/Ho_Chi_Minh'
     depends_on:
