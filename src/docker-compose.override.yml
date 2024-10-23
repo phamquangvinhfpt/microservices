@@ -1,0 +1,122 @@
+version: '3.8'
+
+
+services:
+
+
+  # orderdb section
+  orderdb:
+   container_name: orderdb
+   environment:
+    SA_PASSWORD: "123Pa$$$$word!"
+    ACCEPT_EULA: "Y"
+   restart: always
+   volumes:
+    - sqlserver_data:/var/lib/sqlserver/data
+   ports:
+    - "1434:1433"
+
+  # productdb: mysql
+  productdb:
+    container_name: productdb
+    environment:
+      - MYSQL_ROOT_PASSWORD=123Pa$$$$word!
+    restart: always
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  # customerdb: postgres
+  customerdb:
+    container_name: customerdb
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123Pa$$$$word!
+      - POSTGRES_DB=DiscountDb
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+
+  # basketdb: redis
+  basketdb:
+    container_name: basketdb
+    restart: always
+    ports:
+      - "6379:6379"
+
+  # inventorydb: mongo
+  inventorydb:
+    container_name: inventorydb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  # infrastructure section
+  rabbitmq:
+    container_name: rabbitmq
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  pgadmin:
+    container_name: pgadmin
+    restart: always
+    ports:
+      - "5050:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@root.com
+      PGADMIN_DEFAULT_PASSWORD: 123Pa$$$$word!
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+
+  portainer:
+    container_name: portainer
+    restart: always
+    ports:
+      - "9000:9000"
+      - "8088:8000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+
+  elasticsearch:
+    container_name: elasticsearch
+    restart: always
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      - xpack.monitoring.enabled=true
+      - xpack.watcher.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - discovery.type=single-node
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+
+  kibana:
+    container_name: kibana
+    restart: always
+    ports:
+      - "5601:5601"
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    depends_on:
+      - elasticsearch
+
+  phpmyadmin:
+    container_name: phpmyadmin
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: 123Pa$$$$word!
+      TZ: 'Asia/Ho_Chi_Minh'
+    depends_on:
+      - productdb
