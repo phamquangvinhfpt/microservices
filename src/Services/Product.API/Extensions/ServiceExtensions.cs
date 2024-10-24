@@ -19,6 +19,7 @@ public static class ServiceExtensions
         services.AddSwaggerGen();
         services.ConfigureProductDbContext(configuration);
         services.AddInfrastructureServices();
+        services.AddAutoMapper(typeof(MappingProfile).Assembly);
 
         return services;
     }
