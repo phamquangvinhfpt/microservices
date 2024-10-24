@@ -20,9 +20,10 @@ Go to folder contain file `docker-compose`
 docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d --remove-orphans
 ```
 
-## Application URLS
+## Application URLS - LOCAL Environment (Docker Container):
+- Product API: http://localhost:6002/api/products
 
-## Docker Application URLS
+## Docker Application URLS - LOCAL Environment (Docker Container):
 - Portainer: http://localhost:9000 - username: admin; pass: 123Pa$$word!
 - kibana: http://localhost:5601 - username: elastic; pass: admin
 - RabbitMQ: http://localhost:15672 - username: guest; pass: guest
@@ -32,7 +33,7 @@ docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d --remo
 - Run Compound to start multi project:
 ---
 ## Application URLS - DEVELOPMENT Environment:
-
+- Product API: http://localhost:5002/api/products
 ---
 ## Application URLS - PRODUCTION Environment:
 
