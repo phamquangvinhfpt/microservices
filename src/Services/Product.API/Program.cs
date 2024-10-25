@@ -3,9 +3,12 @@ using Product.API.Extensions;
 using Product.API.Persistence;
 using Serilog;
 
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .CreateBootstrapLogger();
 var builder = WebApplication.CreateBuilder(args);
 
-Log.Information("Starting Product API up");
+Log.Information($"Starting {builder.Environment.ApplicationName} up");
 try
 {
     builder.Host.UseSerilog(Serilogger.ConfigureLogger);
@@ -28,10 +31,10 @@ catch (Exception ex)
     {
         throw;
     }
-    Log.Fatal(ex, "Product API terminated unexpectedly");
+    Log.Fatal(ex, $"Unhandled exception: {ex.Message}");
 }
 finally
 {
-    Log.Information("Product API shutting down gracefully");
+    Log.Information($"Shut down {builder.Environment.ApplicationName} gracefully");
     Log.CloseAndFlush();
 }

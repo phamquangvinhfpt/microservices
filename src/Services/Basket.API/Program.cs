@@ -1,14 +1,25 @@
+using Basket.API.Extensions;
 using Common.Logging;
 using Serilog;
 
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .CreateBootstrapLogger();
 var builder = WebApplication.CreateBuilder(args);
-builder.Host.UseSerilog(Serilogger.ConfigureLogger);
 
-Log.Information("Starting Basket API up");
+Log.Information($"Starting {builder.Environment.ApplicationName} up");
 try
 {
     // Add services to the container.
-
+    builder.Host.UseSerilog(Serilogger.ConfigureLogger);
+    builder.Host.AddAppConfiguration();
+    builder.Services.ConfigureServices();
+    builder.Services.ConfigureRedis(builder.Configuration);
+    builder.Services.Configure<RouteOptions>(options =>
+    {
+        options.LowercaseUrls = true;
+        options.LowercaseQueryStrings = true;
+    });
     builder.Services.AddControllers();
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();
@@ -20,10 +31,12 @@ try
     if (app.Environment.IsDevelopment())
     {
         app.UseSwagger();
-        app.UseSwaggerUI();
+        app.UseSwaggerUI( c => {
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", $"{builder.Environment.ApplicationName} V1");
+        });
     }
 
-    app.UseHttpsRedirection();
+    // app.UseHttpsRedirection(); // production only
 
     app.UseAuthorization();
 
@@ -34,7 +47,12 @@ try
 }
 catch (Exception ex)
 {
-    Log.Fatal(ex, "Basket API terminated unexpectedly");
+    string type = ex.GetType().Name;
+    if (type.Equals("StopTheHostException", StringComparison.Ordinal))
+    {
+        throw;
+    }
+    Log.Fatal(ex, $"Unhandled exception: {ex.Message}");
 }
 finally
 {

@@ -10,14 +10,16 @@ using Infrastructure.Common;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .CreateBootstrapLogger();
 var builder = WebApplication.CreateBuilder(args);
-builder.Host.UseSerilog(Serilogger.ConfigureLogger);
 
-Log.Information("Starting Customer API up");
+Log.Information($"Starting {builder.Environment.ApplicationName} up");
 try
 {
     // Add services to the container.
-
+    builder.Host.UseSerilog(Serilogger.ConfigureLogger);
     builder.Services.AddControllers();
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();
@@ -57,10 +59,10 @@ catch (Exception ex)
 {
     string type = ex.GetType().Name;
     if (type.Equals("StopTheHostException", StringComparison.Ordinal)) throw;
-    Log.Fatal(ex, "Customer API terminated unexpectedly");
+    Log.Fatal(ex, $"Unhandled exception: {ex.Message}");
 }
 finally
 {
-    Log.Information("Customer API shutting down gracefully");
+    Log.Information($"Shut down {builder.Environment.ApplicationName} gracefully");
     Log.CloseAndFlush();
 }
