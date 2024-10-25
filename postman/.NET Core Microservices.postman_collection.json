@@ -1,0 +1,318 @@
+{
+	"info": {
+		"_postman_id": "b2ca7867-d404-4171-bdc8-aa597afea446",
+		"name": ".NET Core Microservices",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27807050"
+	},
+	"item": [
+		{
+			"name": "Product API",
+			"item": [
+				{
+					"name": "Get Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{productApiUrl}}/products",
+							"host": [
+								"{{productApiUrl}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{productApiUrl}}/products/2",
+							"host": [
+								"{{productApiUrl}}"
+							],
+							"path": [
+								"products",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product by No",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{productApiUrl}}/products/get-product-by-no/lotus",
+							"host": [
+								"{{productApiUrl}}"
+							],
+							"path": [
+								"products",
+								"get-product-by-no",
+								"lotus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"no\": \"apple-iphone-x\",\r\n    \"name\": \"Esprit\",\r\n    \"summary\": \"Nondisplaced fracture of greater trochanter of right femur\",\r\n    \"description\": \"Nondisplaced fracture of greater trochanter of right femur\",\r\n    \"price\": 1234567.89\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{productApiUrl}}/products",
+							"host": [
+								"{{productApiUrl}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Product",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Apple Iphone X\",\r\n    \"summary\": \"Nondisplaced fracture of greater trochanter of right femur\",\r\n    \"description\": \"Nondisplaced fracture of greater trochanter of right femur\",\r\n    \"price\": 1200\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{productApiUrl}}/products/3",
+							"host": [
+								"{{productApiUrl}}"
+							],
+							"path": [
+								"products",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{productApiUrl}}/products/3",
+							"host": [
+								"{{productApiUrl}}"
+							],
+							"path": [
+								"products",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Customer API",
+			"item": [
+				{
+					"name": "Get Customers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{customerApiUrl}}/customers",
+							"host": [
+								"{{customerApiUrl}}"
+							],
+							"path": [
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Customer",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{customerApiUrl}}/customers/customer1",
+							"host": [
+								"{{customerApiUrl}}"
+							],
+							"path": [
+								"customers",
+								"customer1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Customer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"customer3\",\r\n    \"firstName\": \"customer3\",\r\n    \"lastName\": \"customer\",\r\n    \"emailAddress\": \"customer3@local.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{customerApiUrl}}/customers",
+							"host": [
+								"{{customerApiUrl}}"
+							],
+							"path": [
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Customer",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"customer3\",\r\n    \"lastName\": \"customer3\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{customerApiUrl}}/customers/3",
+							"host": [
+								"{{customerApiUrl}}"
+							],
+							"path": [
+								"customers",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Customer",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{customerApiUrl}}/customers/3",
+							"host": [
+								"{{customerApiUrl}}"
+							],
+							"path": [
+								"customers",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Basket API",
+			"item": [
+				{
+					"name": "Get Basket by username",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{basketApiUrl}}/baskets/iphone13",
+							"host": [
+								"{{basketApiUrl}}"
+							],
+							"path": [
+								"baskets",
+								"iphone13"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Basket",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userName\": \"iphone13\",\r\n  \"items\": [\r\n    {\r\n      \"quantity\": 12,\r\n      \"itemPrice\": 1200,\r\n      \"itemNo\": \"iphone\",\r\n      \"itemName\": \"ihpone13\"\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{basketApiUrl}}/baskets",
+							"host": [
+								"{{basketApiUrl}}"
+							],
+							"path": [
+								"baskets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Basket",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{basketApiUrl}}/baskets/iphone13",
+							"host": [
+								"{{basketApiUrl}}"
+							],
+							"path": [
+								"baskets",
+								"iphone13"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

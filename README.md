@@ -22,6 +22,8 @@ docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d --remo
 
 ## Application URLS - LOCAL Environment (Docker Container):
 - Product API: http://localhost:6002/api/products
+- Customer API: http://localhost:6003/api/customers
+- Basket API: http://localhost:6004/api/baskets
 
 ## Docker Application URLS - LOCAL Environment (Docker Container):
 - Portainer: http://localhost:9000 - username: admin; pass: 123Pa$$word!
@@ -34,6 +36,8 @@ docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d --remo
 ---
 ## Application URLS - DEVELOPMENT Environment:
 - Product API: http://localhost:5002/api/products
+- Customer API: http://localhost:5003/api/customers
+- Basket API: http://localhost:5004/api/baskets
 ---
 ## Application URLS - PRODUCTION Environment:
 
@@ -56,3 +60,7 @@ docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d --remo
 - ASPNETCORE_ENVIRONMENT=Production dotnet ef database update
 - dotnet watch run --environment "Development"
 - dotnet restore
+
+## Design Architecture:
+
+![architecture](architecture.png)
