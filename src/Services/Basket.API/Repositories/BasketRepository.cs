@@ -21,13 +21,16 @@ public class BasketRepository : IBasketRepository
 
     public async Task<Cart?> GetBasketByUserName(string userName)
     {
+        _logger.Information($"BEGIN: Getting basket by username {userName}");
         var basket = await _redisCacheService.GetStringAsync(userName);
+        _logger.Information($"END: Getting basket by username {userName}");
         return string.IsNullOrEmpty(basket) ? null : 
             _serializeService.Deserialize<Cart>(basket);
     }
 
     public async Task<Cart> UpdateBasket(Cart cart, DistributedCacheEntryOptions options = null)
     {
+        _logger.Information($"BEGIN: Updating basket by username {cart.UserName}");
         if (options != null)
         {
             await _redisCacheService.SetStringAsync(cart.UserName,
@@ -38,7 +41,7 @@ public class BasketRepository : IBasketRepository
             await _redisCacheService.SetStringAsync(cart.UserName,
                 _serializeService.Serialize(cart));
         }
-
+        _logger.Information($"END: Updating basket by username {cart.UserName}");
         return await GetBasketByUserName(cart.UserName);
     }
 
@@ -46,8 +49,10 @@ public class BasketRepository : IBasketRepository
     {
         try
         {
-        await _redisCacheService.RemoveAsync(userName);
-        return true;
+            _logger.Information($"BEGIN: Deleting basket from username {userName}");
+            await _redisCacheService.RemoveAsync(userName);
+            _logger.Information($"END: Deleting basket from username {userName}");
+            return true;
         }
         catch(Exception e)
         {
