@@ -7,7 +7,7 @@ public static class CustomersController
 {
     public static void MapCustomersAPI(this WebApplication app)
     {
-        app.MapGet("/", () => "Welcome to Customer API!");
+        app.MapGet("/", () => "Welcome to Customer Minimal API!");
         
         app.MapGet("/api/customers/{username}",
             async (ICustomerService customerService, string username) => 

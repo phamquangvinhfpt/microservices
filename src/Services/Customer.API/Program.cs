@@ -27,7 +27,7 @@ try
     builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
     builder.Services.AddDbContext<CustomerContext>(options => options.UseNpgsql(connectionString));
     builder.Services.AddScoped<ICustomerRepository, CustomerRepository>()
-        .AddScoped(typeof(IRepositoryBaseAsync<,,>), typeof(RepositoryBaseAsync<,,>))
+        .AddScoped(typeof(IRepositoryBaseAsync<,,>), typeof(RepositoryBase<,,>))
         .AddScoped(typeof(IUnitOfWork<>), typeof(UnitOfWork<>))
         .AddScoped<ICustomerService, CustomerService>();
 
@@ -39,10 +39,12 @@ try
     if (app.Environment.IsDevelopment())
     {
         app.UseSwagger();
-        app.UseSwaggerUI();
+        app.UseSwaggerUI(c => {
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", "Customer API V1");
+        });
     }
 
-    app.UseHttpsRedirection();
+    // app.UseHttpsRedirection(); // production only
 
     app.UseAuthorization();
 

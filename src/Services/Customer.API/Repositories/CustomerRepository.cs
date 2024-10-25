@@ -7,7 +7,7 @@ using Shared.DTOs.Customer;
 
 namespace Customer.API.Repositories;
 
-public class CustomerRepository : RepositoryBaseAsync<Entities.Customer, int, CustomerContext>, ICustomerRepository
+public class CustomerRepository : RepositoryBase<Entities.Customer, int, CustomerContext>, ICustomerRepository
 {
     public CustomerRepository(CustomerContext dbcontext,
         IUnitOfWork<CustomerContext> unitOfWork) : base(dbcontext, unitOfWork)
