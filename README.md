@@ -60,6 +60,12 @@ docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d --remo
 - ASPNETCORE_ENVIRONMENT=Production dotnet ef database update
 - dotnet watch run --environment "Development"
 - dotnet restore
+- dotnet build
+- Migration Command: CD Ordering folder then
+ - dotnet ef migrations add "SampleMessage" --project {project dir} --startup-project {project dir} --output-dir {project dir}/Migrations
+ - dotnet ef migrations remove --project Ordering.Infrastructure --startup-project Ordering.API
+ - dotnet ef database drop -f -v
+ - dotnet ef database update --project Ordering.Infrastructure --startup-project Ordering.API
 
 ## Design Architecture:
 
